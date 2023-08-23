@@ -1,2 +1,0 @@
-# iptvboss-release
-IPTVBoss Editor
