@@ -1,0 +1,4 @@
+{$IPTVBOSS_DOMAIN} {
+	# Replace 8001 when IPTVBOSS_XC_PORT is set to a custom listener port.
+	reverse_proxy iptvboss:8001
+}

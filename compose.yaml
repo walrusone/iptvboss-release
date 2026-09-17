@@ -1,0 +1,25 @@
+services:
+  iptvboss:
+    image: "${IPTVBOSS_IMAGE:-ghcr.io/walrusone/iptvboss-release}:${IPTVBOSS_TAG:-latest}"
+    pull_policy: always
+    restart: unless-stopped
+    stop_grace_period: 60s
+    user: "${IPTVBOSS_UID:-10001}:${IPTVBOSS_GID:-10001}"
+    environment:
+      IPTVBOSS_XC_PORT: "${IPTVBOSS_XC_PORT:-8001}"
+      IPTVBOSS_XC_BEHIND_HTTPS_PROXY: "${IPTVBOSS_XC_BEHIND_HTTPS_PROXY:-false}"
+      IPTVBOSS_HTTPS_ONLY: "${IPTVBOSS_HTTPS_ONLY:-false}"
+      IPTVBOSS_XC_KEYSTORE_PASSWORD: "${IPTVBOSS_XC_KEYSTORE_PASSWORD:-}"
+      IPTVBOSS_XC_BIND_ADDRESS: "${IPTVBOSS_XC_BIND_ADDRESS:-all}"
+      IPTVBOSS_XC_TRUSTED_PROXIES: "${IPTVBOSS_XC_TRUSTED_PROXIES:-}"
+    ports:
+      - "${IPTVBOSS_HOST_IP:-0.0.0.0}:${IPTVBOSS_HOST_PORT:-8001}:${IPTVBOSS_XC_PORT:-8001}"
+    volumes:
+      - iptvboss-data:/data
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  iptvboss-data:
